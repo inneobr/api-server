@@ -42,10 +42,12 @@ export class UsuarioController {
         await usuarioRep.delete(uuid);
         return res.status(201).json({ message: usuario?.username + " Deletado com sucesso."});
     }
+    
     async findall(req: Request, res: Response) {
 		const usuario = await usuarioRep.find()
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
-		return res.json(usuario);
+        const response = usuario.map(item => {  return { uuid: item.uuid, username: item.username }});
+		return res.json(response);
 	}
 
     async findByUuid(req: Request, res: Response) {
@@ -54,7 +56,8 @@ export class UsuarioController {
 
 		const usuario = await usuarioRep.findOneBy({ uuid: Number(uuid) })
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
-		return res.json(usuario);
+        const response = { uuid: usuario.uuid, username: usuario.username };
+		return res.json(response);
 	}
 
     async findByUsername(req: Request, res: Response) {
@@ -65,6 +68,7 @@ export class UsuarioController {
         .where("LOWER(username) LIKE :username", { username: `%${ username.toLowerCase() }%` })
         .getMany();
         if(!usuarios) return res.status(200).json({ message: "Nenhum registro encontrado."});
-		return res.json(usuarios);
+		const response = usuarios.map(item => {  return { uuid: item.uuid, username: item.username }});
+		return res.json(response);
 	}
 }

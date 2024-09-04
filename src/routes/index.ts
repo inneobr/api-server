@@ -3,9 +3,11 @@ const routes = Router();
 
 /* CONTROLLERS APLICATION */
 import { UsuarioController } from '../controllers/UsuarioController';
+import { RuningControllers } from '../controllers/RuningControllers';
 import { VideoController } from '../controllers/VideoController';
 import { AuthController } from '../controllers/AuthController';
 import { required, optional } from '../middlewares/login';
+
 
 /* ROTAS PUBLICAS */
 routes.get('/api/videos/search', new VideoController().findByTitle)
@@ -30,5 +32,7 @@ routes.put('/api/usuarios', required, new UsuarioController().update)
 
 /* ROTAS PUBLICAS */
 routes.post('/api/login', new AuthController().login)
+routes.get('/', new RuningControllers().status)
+
 
 export default routes

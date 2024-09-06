@@ -1,8 +1,8 @@
-## DEV
+## BIBLIOTECAS DEV
 ```diff
     npm i -D typescript nodemon ts-node @types/express @types/node
 ```
-## PROD
+## BIBLIOTECAS PROD
 ```diff
     npm i express oracledb typeorm dotenv reflect-metadata
 ```
@@ -23,3 +23,12 @@
 ```diff
     npm i jsonwebtoken bcryptjs morgan  --save
 ```
+
+## Variaveis de ambiente
+```diff
+DATABASE_USERNAME = ""
+DATABASE_PASSWORD = ""
+DATABASE_HOSTNAME = ""
+
+TOKEN_JWT = ""
+PORT=

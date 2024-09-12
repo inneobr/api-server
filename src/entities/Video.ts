@@ -6,13 +6,13 @@ export class Video {
     @PrimaryGeneratedColumn({name: 'UUID'})
     uuid: number
 
-    @Column({name: 'title'})
+    @Column({type: 'varchar2', name: 'title', nullable: false})
     title: string
 
-    @Column({name: 'description'})
+    @Column({type: 'varchar2', name: 'description', nullable: false})
     description: string
 
-    @Column({name: 'path'})
+    @Column({type: 'varchar2', name: 'path', nullable: false})
     path: string
 
     @ManyToOne(() => Usuarios, usuario => usuario.video)

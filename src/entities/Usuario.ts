@@ -7,10 +7,13 @@ export class Usuarios {
     @PrimaryGeneratedColumn({name: 'uuid'})
     uuid: number
 
-    @Column({name: 'uername'})
+    @Column({type: 'varchar2', name: 'name'})
+    name: string
+
+    @Column({type: 'varchar2', name: 'username', nullable: false})
     username: string
 
-    @Column({name: 'password'})
+    @Column({type: 'varchar2', name: 'password', nullable: false})
     password: string
 
     @OneToMany(() => Thoughts, thought => thought.usuario)

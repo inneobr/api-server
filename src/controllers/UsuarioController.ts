@@ -4,10 +4,11 @@ const bcrypt = require('bcryptjs');
 
 export class UsuarioController {
     async create(req: Request, res: Response) {
-        const { username, password } = req.body
-        if( !username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
+        const { name, username, password } = req.body
+        if( !name || !username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const criptpass = bcrypt.hashSync(password, 10);
         const create = usuarioRep.create({
+            name,
             username,
             password: criptpass
         })

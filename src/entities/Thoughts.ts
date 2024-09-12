@@ -6,7 +6,7 @@ export class Thoughts {
     @PrimaryGeneratedColumn({name: 'uuid'})
     uuid: number
       
-    @Column({name: 'message'})
+    @Column({type: 'varchar2', name: 'message', nullable: false})
     message: string
 
     @CreateDateColumn({name: 'created'})

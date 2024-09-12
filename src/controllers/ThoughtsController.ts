@@ -1,6 +1,5 @@
 import { Request, Response } from 'express'
 import { thoughtsRep } from '../repositories/ThoughtsRep';
-import { usuarioRep } from '../repositories/UsuariosRep';
 
 export class ThoughtController {
     async create(req: Request, res: Response) {
@@ -14,7 +13,7 @@ export class ThoughtController {
         await thoughtsRep.save(create);
         return res.status(201).json(create);
     }
-    
+
     async findall(req: Request, res: Response) {
 		const thoughts = await thoughtsRep.find()       
         if(!thoughts) return res.status(200).json({ message: "Nenhum registro encontrado."});

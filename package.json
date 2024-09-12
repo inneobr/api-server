@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Api rest de serviços inneo.org",
   "main": "index.js",
-  "scripts": {    
+  "scripts": {
     "migration:generate": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:generate ./src/migrations/default",
     "migration:run": "typeorm-ts-node-commonjs -d ./src/data-source.ts migration:run",
     "dev": "nodemon --exec ts-node ./src/index.ts",
@@ -26,6 +26,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.4.5",
+    "elisa": "^0.5.3",
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "morgan": "^1.10.0",

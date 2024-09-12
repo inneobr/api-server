@@ -1,4 +1,4 @@
-const encoding = process.env.JWT_SECRET;
+const encoding = process.env.TOKEN_JWT;
 const jwt = require('jsonwebtoken');
 
 type jwtClient = {

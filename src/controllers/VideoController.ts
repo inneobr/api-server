@@ -3,16 +3,17 @@ import { videoRep } from '../repositories/VideosRep';
 
 export class VideoController {
     async create(req: Request, res: Response) {
-        const { title, descricao, publiclink  } = req.body
-        if( !title || !descricao|| !publiclink ) return res.status(400).json({ message: "Campos com * obrigatório."});
-
+        const { uuid, title, description, path, usuario} = req.body;
+        if( !uuid || !title || !description|| !path || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const create = videoRep.create({
+            uuid,
             title,
-            descricao,
-            publiclink
+            description,
+            path,
+            usuario
         })
 
-        const video = await videoRep.findOneBy({publiclink: String(create.publiclink)});
+        const video = await videoRep.findOneBy({path: String(create.path)});
         if(video) return res.status(400).json({ message: "Video encontrado no sistema."});
 
         await videoRep.save(create);
@@ -20,13 +21,14 @@ export class VideoController {
     }
 
     async update(req: Request, res: Response) {
-        const { uuid, title, descricao, publiclink } = req.body;
-        if( !uuid || !title || !descricao|| !publiclink ) return res.status(400).json({ message: "Campos com * obrigatório."});
+        const { uuid, title, description, path, usuario} = req.body;
+        if( !uuid || !title || !description|| !path || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const create = videoRep.create({
             uuid,
             title,
-            descricao,
-            publiclink
+            description,
+            path,
+            usuario
         })
 
         const video = await videoRep.findOneBy({uuid: Number(uuid)});

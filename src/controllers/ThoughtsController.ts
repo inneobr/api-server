@@ -16,8 +16,23 @@ export class ThoughtController {
     }
 
     async findall(req: Request, res: Response) {
-		const thoughts = await thoughtsRep.find()       
+        
+		const thoughts = await thoughtsRep.createQueryBuilder("thoughts")
+        .leftJoinAndSelect("thoughts.usuario", "usuario")
+        .getMany()        
         if(!thoughts) return res.status(200).json({ message: "Nenhum registro encontrado."});
-		return res.json(thoughts);
+        const response = thoughts.map((thought, index) => {
+            return {                
+                usuario: {
+                    uuid: thought.usuario.uuid,
+                    name: thought.usuario.name,
+                    username: thought.usuario.username
+                },
+                uuid: thought.uuid,
+                message: thought.message
+            }
+        })
+        
+		return res.json(response);
 	}
 }

@@ -18,11 +18,11 @@ export class TrendingController {
 
     async findall(req: Request, res: Response) {
         
-		const thoughts = await trendingRep.createQueryBuilder("trending")
+		const trending = await trendingRep.createQueryBuilder("trending")
         .leftJoinAndSelect("trending.usuario", "usuario")
         .getMany()        
-        if(!thoughts) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        const response = thoughts.map((item) => {
+        if(!trending) return res.status(200).json({ message: "Nenhum registro encontrado."});
+        const response = trending.map((item) => {
             return {                
                 usuario: {
                     uuid: item.usuario.uuid,

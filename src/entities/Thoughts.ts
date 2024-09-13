@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne,  PrimaryGeneratedColumn } from "typeorm";
 import { Usuarios } from './Usuario'
 
 @Entity('thoughts')
@@ -7,12 +7,12 @@ export class Thoughts {
     uuid: number
       
     @Column({type: 'varchar2', name: 'message', nullable: false})
-    message: string
+    message: string 
 
     @CreateDateColumn({name: 'created'})
-    created: Date
+    created: Date   
 
-    @ManyToOne(() => Usuarios, usuario => usuario.video)
-	@JoinColumn({ name: 'usuario_uuid' })
+    @ManyToOne(() => Usuarios, usuario => usuario.thoughts)
+	@JoinColumn({ name: 'usuario_id' })
 	usuario: Usuarios    
 }

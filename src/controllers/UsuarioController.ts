@@ -1,3 +1,5 @@
+import { UUID } from 'typeorm/driver/mongodb/bson.typings';
+import { thoughtsRep } from '../repositories/ThoughtsRep';
 import { usuarioRep } from '../repositories/UsuariosRep';
 import { Request, Response } from 'express';
 const bcrypt = require('bcryptjs');
@@ -45,9 +47,33 @@ export class UsuarioController {
     }
     
     async findall(req: Request, res: Response) {
-		const usuario = await usuarioRep.find()
+		const usuario = await usuarioRep.find();        
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        const response = usuario.map(item => {  return { uuid: item.uuid, username: item.username }});
+        
+        const response = usuario.map(item => { 
+            return { uuid: item.uuid, username: item.username }});
+		return res.json(response);
+	}
+
+    async findThoughts(req: Request, res: Response) {
+		const usuario = await usuarioRep.createQueryBuilder("usuarios")
+        .leftJoinAndSelect("usuarios.thoughts", "thoughts")
+        .getMany()        
+        if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
+        
+        const response = usuario.map(item => { 
+            return { uuid: item.uuid, username: item.username, message: item.thoughts }});
+		return res.json(response);
+	}
+
+    async findVideos(req: Request, res: Response) {
+		const usuario = await usuarioRep.createQueryBuilder("usuarios")
+        .leftJoinAndSelect("usuarios.videos", "videos")
+        .getMany()        
+        if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
+        
+        const response = usuario.map(item => { 
+            return { uuid: item.uuid, username: item.username, message: item.thoughts }});
 		return res.json(response);
 	}
 
@@ -55,7 +81,7 @@ export class UsuarioController {
         const { uuid  } = req.body
         if( !uuid ) return res.status(400).json({ message: "UUID obrigatório."})
 
-		const usuario = await usuarioRep.findOneBy({ uuid: Number(uuid) })
+		const usuario = await usuarioRep.findOneBy({ uuid: Number(uuid) })       
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         const response = { uuid: usuario.uuid, username: usuario.username };
 		return res.json(response);

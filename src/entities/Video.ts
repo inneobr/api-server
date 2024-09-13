@@ -15,7 +15,7 @@ export class Video {
     @Column({type: 'varchar2', name: 'path', nullable: false})
     path: string
 
-    @ManyToOne(() => Usuarios, usuario => usuario.video)
-	@JoinColumn({ name: 'usuario_uuid' })
-	usuario: Usuarios    
+    @ManyToOne(() => Usuarios, usuario => usuario.videos)
+	@JoinColumn({ name: 'usuario_id' })
+	usuario: Usuarios
 }

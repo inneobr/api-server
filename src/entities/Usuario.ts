@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Thoughts } from './Thoughts'
 import { Video } from './Video'
 
@@ -16,9 +16,11 @@ export class Usuarios {
     @Column({type: 'varchar2', name: 'password', nullable: false})
     password: string
 
-    @OneToMany(() => Thoughts, thought => thought.usuario)
-	thought: Thoughts[] 
+    @OneToMany(() => Thoughts, (thought) => thought.usuario)
+    @JoinTable()
+	thoughts: Thoughts[] 
 
-    @OneToMany(() => Video, video => video.usuario)
-	video: Video[]
+    @OneToMany(() => Video, (video) => video.usuario)
+    @JoinTable()
+	videos: Video[]
 }

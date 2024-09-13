@@ -1,9 +1,10 @@
 import { Request, Response } from 'express'
 import { thoughtsRep } from '../repositories/ThoughtsRep';
+import { usuarioRep } from '../repositories/UsuariosRep';
 
 export class ThoughtController {
     async create(req: Request, res: Response) {
-        const { message, usuario  } = req.body
+        const { message, usuario } = req.body
         if( !message || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
 
         const create = thoughtsRep.create({

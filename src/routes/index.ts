@@ -17,7 +17,6 @@ routes.post('/api/auth', new AuthController().login)
 routes.get('/', new RuningControllers().status)
 
 routes.get('/api/usuarios/search', new UsuarioController().findByUsername)
-routes.get('/api/usuarios/thoughts', new UsuarioController().findTrendin)
 routes.get('/api/usuarios/videos', new UsuarioController().findVideos)
 routes.get('/api/usuarios/uuid', new UsuarioController().findByUuid)
 routes.get('/api/usuarios', new UsuarioController().findall)

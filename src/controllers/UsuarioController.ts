@@ -55,17 +55,6 @@ export class UsuarioController {
 		return res.json(response);
 	}
 
-    async findTrendin(req: Request, res: Response) {
-		const usuario = await usuarioRep.createQueryBuilder("usuarios")
-        .leftJoinAndSelect("usuarios.trending", "trending")
-        .getMany()        
-        if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        
-        const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username, thoughts: item.trending }});
-		return res.json(response);
-	}
-
     async findVideos(req: Request, res: Response) {
 		const usuario = await usuarioRep.createQueryBuilder("usuarios")
         .leftJoinAndSelect("usuarios.videos", "videos")

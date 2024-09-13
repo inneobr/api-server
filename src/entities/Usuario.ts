@@ -1,5 +1,5 @@
 import { Column, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
-import { Thoughts } from './Thoughts'
+import { Trending } from './Trending'
 import { Video } from './Video'
 
 @Entity('usuarios')
@@ -16,9 +16,9 @@ export class Usuarios {
     @Column({type: 'varchar2', name: 'password', nullable: false})
     password: string
 
-    @OneToMany(() => Thoughts, (thought) => thought.usuario)
+    @OneToMany(() => Trending, (trending) => trending.usuario)
     @JoinTable()
-	thoughts: Thoughts[] 
+	trending: Trending[] 
 
     @OneToMany(() => Video, (video) => video.usuario)
     @JoinTable()

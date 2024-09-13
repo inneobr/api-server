@@ -1,5 +1,5 @@
 import { UUID } from 'typeorm/driver/mongodb/bson.typings';
-import { thoughtsRep } from '../repositories/ThoughtsRep';
+import { trendingRep } from '../repositories/TrendingRep';
 import { usuarioRep } from '../repositories/UsuariosRep';
 import { Request, Response } from 'express';
 const bcrypt = require('bcryptjs');
@@ -55,14 +55,14 @@ export class UsuarioController {
 		return res.json(response);
 	}
 
-    async findThoughts(req: Request, res: Response) {
+    async findTrendin(req: Request, res: Response) {
 		const usuario = await usuarioRep.createQueryBuilder("usuarios")
-        .leftJoinAndSelect("usuarios.thoughts", "thoughts")
+        .leftJoinAndSelect("usuarios.trending", "trending")
         .getMany()        
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username, thoughts: item.thoughts }});
+            return { uuid: item.uuid, username: item.username, thoughts: item.trending }});
 		return res.json(response);
 	}
 
@@ -73,7 +73,7 @@ export class UsuarioController {
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username, videos: item.thoughts }});
+            return { uuid: item.uuid, username: item.username, videos: item.videos }});
 		return res.json(response);
 	}
 

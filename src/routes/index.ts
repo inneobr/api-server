@@ -30,7 +30,7 @@ routes.delete('/api/videos', required, new VideoController().delete)
 routes.post('/api/videos', required, new VideoController().create)
 routes.put('/api/videos', required, new VideoController().update)
 
-routes.post('/api/thoughts', new TrendingController().create)
-routes.get('/api/thoughts', new TrendingController().findall)
+routes.post('/api/trending', new TrendingController().create)
+routes.get('/api/trending', new TrendingController().findall)
 
 export default routes

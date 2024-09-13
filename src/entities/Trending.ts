@@ -6,13 +6,13 @@ export class Trending {
     @PrimaryGeneratedColumn({name: 'uuid'})
     uuid: number
       
-    @Column({type: 'varchar2', name: 'message', nullable: false})
+    @Column({type: 'varchar2', name: 'message', nullable: true})
     message: string 
 
-    @Column({type: 'blob', name: 'base64', nullable: false})
+    @Column({type: 'clob', name: 'base64', nullable: true})
     base64: string 
 
-    @Column({type: 'varchar2', name: 'share', nullable: false})
+    @Column({type: 'clob', name: 'share', nullable: true})
     share: string  
 
     @CreateDateColumn({name: 'created'})

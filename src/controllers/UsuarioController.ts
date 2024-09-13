@@ -56,7 +56,7 @@ export class UsuarioController {
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, name: item.name, base64: item.base64, username: item.username }});
+            return { name: item.name, username: item.username, uuid: item.uuid, base64: item.base64 }});
 		return res.json(response);
 	}
 

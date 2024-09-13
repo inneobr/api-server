@@ -2,7 +2,7 @@ const encoding = process.env.TOKEN_JWT;
 const jwt = require('jsonwebtoken');
 
 type jwtClient = {
-	uuid: number,
+	uuid: String,
     username: string
 }
 

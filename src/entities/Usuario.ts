@@ -1,11 +1,13 @@
 import { Column, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { Trending } from './Trending'
-import { Video } from './Video'
 
 @Entity('usuarios')
 export class Usuarios {
-    @PrimaryGeneratedColumn({name: 'uuid'})
-    uuid: number
+    @PrimaryGeneratedColumn({name: 'id'})
+    id: number
+
+    @Column({type: 'varchar2', name: 'uuid', nullable: true})
+    uuid: string 
 
     @Column({type: 'varchar2', name: 'name'})
     name: string
@@ -21,9 +23,5 @@ export class Usuarios {
 
     @OneToMany(() => Trending, (trending) => trending.usuario)
     @JoinTable()
-	trending: Trending[] 
-
-    @OneToMany(() => Video, (video) => video.usuario)
-    @JoinTable()
-	videos: Video[]
+	trending: Trending[]
 }

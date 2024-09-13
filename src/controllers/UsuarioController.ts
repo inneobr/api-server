@@ -1,7 +1,7 @@
-import { UUID } from 'typeorm/driver/mongodb/bson.typings';
-import { trendingRep } from '../repositories/TrendingRep';
 import { usuarioRep } from '../repositories/UsuariosRep';
 import { Request, Response } from 'express';
+import uuid from 'react-uuid';
+
 const bcrypt = require('bcryptjs');
 
 export class UsuarioController {
@@ -10,6 +10,7 @@ export class UsuarioController {
         if( !name || !username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const criptpass = bcrypt.hashSync(password, 10);
         const create = usuarioRep.create({
+            uuid: uuid(),
             name,
             base64,
             username,
@@ -22,17 +23,18 @@ export class UsuarioController {
     }
 
     async update(req: Request, res: Response) {
-        const { uuid, name, base64, username, password } = req.body;
-        if(!username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
+        const { id, uuid, name, base64, username, password } = req.body;
+        if( !id || !uuid || !username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const criptpass = bcrypt.hashSync(password, 10);
         const create =  usuarioRep.create({
+            id,
             uuid,
             name, 
             base64,
             username,
             password: criptpass
         })
-        const usuario = await usuarioRep.findOneBy({uuid: Number(create.uuid)});
+        const usuario = await usuarioRep.findOneBy({uuid: String(create.uuid)});
         if(!usuario) return res.status(400).json({ message: "UUID não encontrado."});
         await usuarioRep.update(uuid, create);
         return res.status(201).json(create);
@@ -42,7 +44,7 @@ export class UsuarioController {
         const { uuid } = req.body;
         if( !uuid ) return res.status(400).json({ message: "UUID obrigatório."});   
 
-        const usuario = await usuarioRep.findOneBy({uuid: Number(uuid)});        
+        const usuario = await usuarioRep.findOneBy({uuid: String(uuid)});        
         if(!usuario) return res.status(400).json({ message: "UUID não encontrado."});
 
         await usuarioRep.delete(uuid);
@@ -58,22 +60,11 @@ export class UsuarioController {
 		return res.json(response);
 	}
 
-    async findVideos(req: Request, res: Response) {
-		const usuario = await usuarioRep.createQueryBuilder("usuarios")
-        .leftJoinAndSelect("usuarios.videos", "videos")
-        .getMany()        
-        if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        
-        const response = usuario.map(item => { 
-            return { uuid: item.uuid, name: item.name, base64: item.base64, username: item.username, videos: item.videos }});
-		return res.json(response);
-	}
-
     async findByUuid(req: Request, res: Response) {
         const { uuid  } = req.body
         if( !uuid ) return res.status(400).json({ message: "UUID obrigatório."})
 
-		const usuario = await usuarioRep.findOneBy({ uuid: Number(uuid) })       
+		const usuario = await usuarioRep.findOneBy({ uuid: String(uuid) })       
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         const response = { uuid: usuario.uuid, name: usuario.name, base64: usuario.base64, username: usuario.username };
 		return res.json(response);

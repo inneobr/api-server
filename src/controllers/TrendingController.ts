@@ -1,16 +1,17 @@
-import { Request, Response } from 'express'
 import { trendingRep } from '../repositories/TrendingRep';
+import { Request, Response } from 'express'
+import uuid from 'react-uuid';
 
 export class TrendingController {
     async create(req: Request, res: Response) {
-        const { message, usuario, base64, share } = req.body
+        const { message, usuario, base64 } = req.body
         if( !message || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         
         const create = trendingRep.create({
+            uuid: uuid(),
             message,
             usuario,
-            base64,
-            share
+            base64
         })
         await trendingRep.save(create);
         return res.status(201).json(create);
@@ -33,7 +34,6 @@ export class TrendingController {
                 uuid: item.uuid,
                 message: item.message,
                 base64: item.base64,
-                share: item.share,
                 created: item.created
             }
         })

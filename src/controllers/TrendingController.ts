@@ -33,7 +33,8 @@ export class TrendingController {
                 uuid: item.uuid,
                 message: item.message,
                 base64: item.base64,
-                share: item.share
+                share: item.share,
+                created: item.created
             }
         })
         

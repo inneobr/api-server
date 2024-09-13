@@ -6,11 +6,12 @@ const bcrypt = require('bcryptjs');
 
 export class UsuarioController {
     async create(req: Request, res: Response) {
-        const { name, username, password } = req.body
+        const { name, base64, username, password } = req.body
         if( !name || !username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const criptpass = bcrypt.hashSync(password, 10);
         const create = usuarioRep.create({
             name,
+            base64,
             username,
             password: criptpass
         })
@@ -21,11 +22,13 @@ export class UsuarioController {
     }
 
     async update(req: Request, res: Response) {
-        const { uuid, username, password } = req.body;
+        const { uuid, name, base64, username, password } = req.body;
         if(!username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const criptpass = bcrypt.hashSync(password, 10);
         const create =  usuarioRep.create({
             uuid,
+            name, 
+            base64,
             username,
             password: criptpass
         })
@@ -51,7 +54,7 @@ export class UsuarioController {
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username }});
+            return { uuid: item.uuid, name: item.name, base64: item.base64, username: item.username }});
 		return res.json(response);
 	}
 
@@ -62,7 +65,7 @@ export class UsuarioController {
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username, videos: item.videos }});
+            return { uuid: item.uuid, name: item.name, base64: item.base64, username: item.username, videos: item.videos }});
 		return res.json(response);
 	}
 
@@ -72,7 +75,7 @@ export class UsuarioController {
 
 		const usuario = await usuarioRep.findOneBy({ uuid: Number(uuid) })       
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        const response = { uuid: usuario.uuid, username: usuario.username };
+        const response = { uuid: usuario.uuid, name: usuario.name, base64: usuario.base64, username: usuario.username };
 		return res.json(response);
 	}
 
@@ -84,7 +87,7 @@ export class UsuarioController {
         .where("LOWER(username) LIKE :username", { username: `%${ username.toLowerCase() }%` })
         .getMany();
         if(!usuarios) return res.status(200).json({ message: "Nenhum registro encontrado."});
-		const response = usuarios.map(item => {  return { uuid: item.uuid, username: item.username }});
+		const response = usuarios.map(item => {  return { uuid: item.uuid, name: item.name, base64: item.base64, username: item.username }});
 		return res.json(response);
 	}
 }

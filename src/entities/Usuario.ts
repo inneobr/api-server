@@ -10,6 +10,9 @@ export class Usuarios {
     @Column({type: 'varchar2', name: 'name'})
     name: string
 
+    @Column({type: 'clob', name: 'base64', nullable: true})
+    base64: string 
+
     @Column({type: 'varchar2', name: 'username', nullable: false})
     username: string
 

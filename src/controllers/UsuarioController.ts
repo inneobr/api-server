@@ -62,7 +62,7 @@ export class UsuarioController {
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username, message: item.thoughts }});
+            return { uuid: item.uuid, username: item.username, thoughts: item.thoughts }});
 		return res.json(response);
 	}
 
@@ -73,7 +73,7 @@ export class UsuarioController {
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username, message: item.thoughts }});
+            return { uuid: item.uuid, username: item.username, videos: item.thoughts }});
 		return res.json(response);
 	}
 

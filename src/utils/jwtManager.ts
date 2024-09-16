@@ -7,7 +7,7 @@ type jwtClient = {
 }
 
 export function createToken(payload: jwtClient){
-	return jwt.sign(payload, encoding, { expiresIn: '365d' })
+	return jwt.sign(payload, encoding, { expiresIn: '30d' })
 }
 
 export function verifyToken(token: string): jwtClient{

@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne,  PrimaryGeneratedColumn } from "typeorm";
-import { Usuarios } from './Usuario'
+import { Usuario } from './Usuario'
 
 @Entity('trending')
 export class Trending {
@@ -18,7 +18,7 @@ export class Trending {
     @CreateDateColumn({name: 'created'})
     created: Date   
 
-    @ManyToOne(() => Usuarios, usuario => usuario.trending)
+    @ManyToOne(() => Usuario, usuario => usuario.trending)
 	@JoinColumn({ name: 'usuario_id' })
-	usuario: Usuarios    
+	usuario: Usuario    
 }

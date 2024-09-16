@@ -27,9 +27,7 @@ export class TrendingController {
             return {                
                 usuario: {
                     uuid: item.usuario.uuid,
-                    name: item.usuario.name,
                     username: item.usuario.username,
-                    base64: item.usuario.base64
                 },
                 uuid: item.uuid,
                 message: item.message,

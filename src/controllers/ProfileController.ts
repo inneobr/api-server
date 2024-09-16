@@ -1,24 +1,20 @@
-import { usuarioRep } from '../repositories/UsuariosRep';
+import { profileRep } from '../repositories/ProfileRep';
 import { Request, Response } from 'express';
 import uuid from 'react-uuid';
 
-const bcrypt = require('bcryptjs');
-
-export class UsuarioController {
+export class ProfileController {
     async create(req: Request, res: Response) {
-        const { username, password } = req.body
-        if( !username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
-        const criptpass = bcrypt.hashSync(password, 10);
-        const create = usuarioRep.create({
+        const { name, biografia, usuario } = req.body
+        if(  !name || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
+        const create = profileRep.create({
             uuid: uuid(),
-            username,
-            password: criptpass
+            name,
+            biografia,
+            usuario
         })
-        const usuario = await usuarioRep.findOneBy({username: String(create.username)});
-        if(usuario) return res.status(400).json({ message: "Username indisponível."});
-        await usuarioRep.save(create);
+        await profileRep.save(create);
         return res.status(201).json(create);
-    }
+    }/*
 
     async update(req: Request, res: Response) {
         const { id, uuid, username, password } = req.body;
@@ -47,13 +43,11 @@ export class UsuarioController {
     }
     
     async findall(req: Request, res: Response) {
-		const usuario = await usuarioRep.createQueryBuilder("usuario")
-        .leftJoinAndSelect("usuario.profile", "profile")
-        .getMany();        
+		const usuario = await usuarioRep.find();        
         if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
         
         const response = usuario.map(item => { 
-            return { uuid: item.uuid, username: item.username, name: item.profile.name, biografia: item.profile.biografia, avatar: item.profile.base64 }});
+            return { uuid: item.uuid, username: item.username }});
 		return res.json(response);
 	}
 
@@ -76,5 +70,5 @@ export class UsuarioController {
         if(!usuarios) return res.status(200).json({ message: "Nenhum registro encontrado."});
 		const response = usuarios.map(item => {  return { uuid: item.uuid, username: item.username }});
 		return res.json(response);
-	}
+	}*/
 }

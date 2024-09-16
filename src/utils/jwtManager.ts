@@ -1,4 +1,5 @@
 const encoding = process.env.TOKEN_JWT;
+const expiresIn = process.env.TOKEN_EXP;
 const jwt = require('jsonwebtoken');
 
 type jwtClient = {
@@ -7,7 +8,7 @@ type jwtClient = {
 }
 
 export function createToken(payload: jwtClient){
-	return jwt.sign(payload, encoding, { expiresIn: '30d' })
+	return jwt.sign(payload, encoding, { expiresIn: expiresIn })
 }
 
 export function verifyToken(token: string): jwtClient{

@@ -11,16 +11,16 @@ export class AuthController {
             username,
             password
         })
-        const usuarios = await usuarioRep.findOneBy({ username: String(create.username)});
-        if (!usuarios) return res.status(403).json({message: 'Não autorizado: username or password incorretos.'});
+        const usuario = await usuarioRep.findOneBy({ username: String(create.username)});
+        if (!usuario) return res.status(403).json({message: 'Não autorizado: username or password incorretos.'});
         if(username) {
             const use_password = create.username ? create.password : '';
-            const dba_password = usuarios?.password;
+            const dba_password = usuario?.password;
             const authenticated = await  bcrypt.compare(use_password, dba_password);
 
             if (!authenticated) return res.status(403).json({ message: 'Não autorizado: username or password incorretos.'});
-            const accessToken = createToken({ uuid: usuarios.uuid, username: usuarios.username });
-	        return res.status(200).json({accessToken: accessToken});
+            const accessToken = createToken({ uuid: usuario.uuid, username: usuario.username });
+	        return res.status(200).json({uuid: usuario.uuid, accessToken: accessToken});
         }
     }
 }

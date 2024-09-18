@@ -19,8 +19,8 @@ export class AuthController {
             const authenticated = await  bcrypt.compare(use_password, dba_password);
 
             if (!authenticated) return res.status(403).json({ message: 'Não autorizado: username or password incorretos.'});
-            const accessToken = createToken({ uuid: usuario.uuid, username: usuario.username });            
-	        return res.status(200).json({accessToken: accessToken});
+            const token = createToken({ uuid: usuario.uuid, username: usuario.username });            
+	        return res.status(200).json({token: token});
         }
     }
 }

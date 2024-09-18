@@ -10,7 +10,7 @@ import { AuthController } from '../controllers/AuthController';
 import { required, optional } from '../middlewares/login';
 
 /* ROTAS PUBLICAS */
-routes.post('/api/login', new AuthController().login)
+routes.post('/api/auth', new AuthController().login)
 routes.get('/', new RuningControllers().status)
 
 routes.get('/api/usuarios/search', new UsuarioController().findByUsername)

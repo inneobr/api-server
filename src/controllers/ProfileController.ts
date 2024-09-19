@@ -16,7 +16,23 @@ export class ProfileController {
         })
         await profileRep.save(create);
         return res.status(201).json(create);
-    }/*
+    }
+    
+    async findByUsuario(req: Request, res: Response) {
+        const { usuario  } = req.body
+        if( !usuario ) return res.status(400).json({ message: "UUID usuário é obrigatório."})
+
+		const profile = await profileRep.createQueryBuilder("profile")
+        .leftJoinAndSelect("profile.usuario", "usuario")
+        .where("usuario.uuid = :uuid", { uuid: usuario.uuid })
+        .getOne();       
+        if(!profile) return res.status(200).json({ message: "Nenhum registro encontrado."});
+        const response = { usuario: {id: profile.usuario.id, username: profile.usuario.username } ,uuid: profile.uuid, name: profile.name, biografia: profile.biografia, email: profile.email, base64: profile.base64 };
+		return res.json(response);
+	}
+    
+    
+    /*
 
     async update(req: Request, res: Response) {
         const { id, uuid, username, password } = req.body;
@@ -50,16 +66,6 @@ export class ProfileController {
         
         const response = usuario.map(item => { 
             return { uuid: item.uuid, username: item.username }});
-		return res.json(response);
-	}
-
-    async findByUuid(req: Request, res: Response) {
-        const { uuid  } = req.body
-        if( !uuid ) return res.status(400).json({ message: "UUID obrigatório."})
-
-		const usuario = await usuarioRep.findOneBy({ uuid: String(uuid) })       
-        if(!usuario) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        const response = { uuid: usuario.uuid, username: usuario.username };
 		return res.json(response);
 	}
 

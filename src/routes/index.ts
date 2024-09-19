@@ -26,5 +26,6 @@ routes.post('/api/trending', new TrendingController().create)
 routes.get('/api/trending', new TrendingController().findall)
 
 routes.post('/api/profile',  new ProfileController().create)
+routes.get('/api/profile',  new ProfileController().findByUsuario)
 
 export default routes

@@ -21,7 +21,7 @@ export class AuthController {
 
             if (!authenticated) return res.status(403).json({ message: 'Não autorizado: username or password incorretos.'});
             const token = createToken({ uuid: usuario.uuid, username: usuario.username });            
-	        return res.status(200).json({uuid: usuario.uuid, token: token, username: usuario.username, profile: usuario?.profile });
+	        return res.status(200).json({ uuid: usuario.uuid, token: token });
         }
     }
 }

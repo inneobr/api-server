@@ -19,8 +19,8 @@ routes.get('/api/usuarios', new UsuarioController().findall)
 
 /* ROTAS PRIVADAS */
 routes.delete('/api/usuarios', required, new UsuarioController().delete)
-routes.post('/api/usuarios',  new UsuarioController().create)
 routes.put('/api/usuarios', required, new UsuarioController().update)
+routes.post('/api/usuarios',  new UsuarioController().create)
 
 routes.post('/api/trending', new TrendingController().create)
 routes.get('/api/trending', new TrendingController().findall)

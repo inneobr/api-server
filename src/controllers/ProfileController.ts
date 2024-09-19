@@ -4,11 +4,13 @@ import uuid from 'react-uuid';
 
 export class ProfileController {
     async create(req: Request, res: Response) {
-        const { name, biografia, usuario } = req.body
-        if(  !name || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
+        const { name, email, biografia, base64, usuario } = req.body
+        if(  !name || !email || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const create = profileRep.create({
             uuid: uuid(),
             name,
+            email,
+            base64,
             biografia,
             usuario
         })

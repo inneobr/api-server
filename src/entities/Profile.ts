@@ -6,11 +6,14 @@ export class Profile {
     @PrimaryGeneratedColumn({name: 'id'})
     id: number
 
-    @Column({type: 'varchar2', name: 'uuid', nullable: true})
+    @Column({type: 'varchar2', name: 'uuid', nullable: false})
     uuid: string 
 
-    @Column({type: 'varchar2', name: 'name'})
+    @Column({type: 'varchar2', name: 'name', nullable: false})
     name: string
+
+    @Column({type: 'varchar2', name: 'email', nullable: false})
+    email: string
 
     @Column({type: 'varchar2', name: 'biografia', nullable: true})
     biografia: string

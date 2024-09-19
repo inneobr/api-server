@@ -27,7 +27,7 @@ export class ProfileController {
         .where("usuario.uuid = :uuid", { uuid: usuario.uuid })
         .getOne();       
         if(!profile) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        const response = { usuario: {id: profile.usuario.id, username: profile.usuario.username } ,uuid: profile.uuid, name: profile.name, biografia: profile.biografia, email: profile.email, base64: profile.base64 };
+        const response = { usuario: {id: profile.usuario.id, username: profile.usuario.username, uuid: profile.usuario.uuid } ,uuid: profile.uuid, name: profile.name, biografia: profile.biografia, email: profile.email, base64: profile.base64 };
 		return res.json(response);
 	}
     

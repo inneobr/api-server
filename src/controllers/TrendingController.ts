@@ -4,38 +4,48 @@ import uuid from 'react-uuid';
 
 export class TrendingController {
     async create(req: Request, res: Response) {
-        const { message, usuario, base64 } = req.body
-        if( !message || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
+        const { uri, link, message, usuario } = req.body
+        if( !uri && !link && !message || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         
         const create = trendingRep.create({
             uuid: uuid(),
+            uri,
+            link,
             message,
-            usuario,
-            base64
+            usuario
         })
         await trendingRep.save(create);
         return res.status(201).json(create);
     }
 
-    async findall(req: Request, res: Response) {
-        
-		const trending = await trendingRep.createQueryBuilder("trending")
-        .leftJoinAndSelect("trending.usuario", "usuario")
-        .getMany()        
-        if(!trending) return res.status(200).json({ message: "Nenhum registro encontrado."});
-        const response = trending.map((item) => {
+    async find(req: Request, res: Response) {        
+		const response = await trendingRep.find();
+        if(!response) return res.status(200).json({ message: "Nenhum registro encontrado."});
+        const trending = response.map((item) => {
             return {                
                 usuario: {
-                    uuid: item.usuario.uuid,
-                    username: item.usuario.username,
+                    uuid: item.usuario.id,
+                    username: item.usuario.username
                 },
                 uuid: item.uuid,
+                uri: item.uri,
+                link: item.link,
                 message: item.message,
-                base64: item.base64,
                 created: item.created
             }
         })
         
 		return res.json(response);
 	}
+
+    async delete(req: Request, res: Response) {
+        const { id } = req.body;
+        if( !id ) return res.status(400).json({ message: "ID obrigatório."});   
+
+        const trending = await trendingRep.findOneBy({id: Number(id)});        
+        if(!trending) return res.status(400).json({ message: "Trending não encontrado."});
+
+        await trendingRep.delete(id);
+        return res.status(201).json({ message: trending?.usuario + " Deletada com sucesso."});
+    }
 }

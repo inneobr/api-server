@@ -33,6 +33,7 @@
     "oracledb": "^6.6.0",
     "react-uuid": "^2.0.0",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "typeorm-sequence": "^1.1.3"
   }
 }

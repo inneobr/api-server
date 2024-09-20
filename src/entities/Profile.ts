@@ -1,26 +1,26 @@
-import { Column, Entity, JoinColumn, JoinTable, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {  PrimaryGeneratedColumn, Column, Entity, OneToOne, JoinColumn, OneToMany, JoinTable } from "typeorm";
 import { Usuario } from "./Usuario";
+import { Imagen } from "./Imagen";
 
 @Entity('profile')
 export class Profile {
     @PrimaryGeneratedColumn({name: 'id'})
     id: number
 
-    @Column({type: 'varchar2', name: 'uuid', nullable: false})
-    uuid: string 
-
-    @Column({type: 'varchar2', name: 'name', nullable: false})
+    @Column({name: 'name', length: 100, nullable: false})
     name: string
 
-    @Column({type: 'varchar2', name: 'email', nullable: false})
-    email: string
+    @Column({name: 'email', length: 100, nullable: false})
+    email: string  
 
-    @Column({type: 'varchar2', name: 'biografia', nullable: true})
-    biografia: string
+    @Column({name: 'biography', length: 100, nullable: true})
+    biography: string  
 
-    @Column({type: 'clob', name: 'base64', nullable: true})
-    base64: string 
-
-    @OneToOne(() => Usuario, (usuario) => usuario.profile) 
+    @OneToOne(() => Usuario, (usuario) => usuario.profile, { eager: true }) 
+    @JoinColumn()
     usuario: Usuario
+
+    @OneToOne(() => Imagen, (imagen) => imagen.profile, { eager: true })
+    @JoinTable()
+	imagen: Imagen
 }

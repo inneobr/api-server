@@ -1,31 +1,31 @@
 import { Router } from 'express';
 const routes = Router();
 
-/* CONTROLLERS APLICATION */
 import { TrendingController } from '../controllers/TrendingController';
-import { UsuarioController } from '../controllers/UsuarioController';
 import { RuningControllers } from '../controllers/RuningControllers';
+import { UsuarioController } from '../controllers/UsuarioController';
 import { ProfileController } from '../controllers/ProfileController';
 import { AuthController } from '../controllers/AuthController';
-import { required, optional } from '../middlewares/login';
+import { required } from '../middlewares/login';
 
-/* ROTAS PUBLICAS */
-routes.post('/api/auth', new AuthController().login)
-routes.get('/', new RuningControllers().status)
 
-routes.get('/api/usuarios/search', new UsuarioController().findByUsername)
-routes.get('/api/usuarios/uuid', new UsuarioController().findByUuid)
-routes.get('/api/usuarios', new UsuarioController().findall)
+routes.post('/api/auth', new AuthController().login);
+routes.get('/', new RuningControllers().status);
 
-/* ROTAS PRIVADAS */
-routes.delete('/api/usuarios', required, new UsuarioController().delete)
-routes.put('/api/usuarios', required, new UsuarioController().update)
-routes.post('/api/usuarios',  new UsuarioController().create)
+routes.get('/api/usuarios/search', new UsuarioController().findByUsername);
+routes.delete('/api/usuarios',required, new UsuarioController().delete);
+routes.put('/api/usuarios',required, new UsuarioController().update);
+routes.get('/api/usuarios/id', new UsuarioController().findById);
+routes.post('/api/usuarios', new UsuarioController().create);
+routes.get('/api/usuarios', new UsuarioController().findall);
 
-routes.post('/api/trending', new TrendingController().create)
-routes.get('/api/trending', new TrendingController().findall)
+routes.post('/api/profile', required, new ProfileController().create);
+routes.put('/api/profile',required,  new ProfileController().update);
+routes.get('/api/profile/all',  new ProfileController().findall)
+routes.get('/api/profile',  new ProfileController().find);
 
-routes.post('/api/profile',  new ProfileController().create)
-routes.get('/api/profile',  new ProfileController().findByUsuario)
+routes.delete('/api/trending', required,  new TrendingController().delete);
+routes.post('/api/trending', required, new TrendingController().create);
+routes.get('/api/trending',  new TrendingController().find);
 
 export default routes

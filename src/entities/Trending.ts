@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne,  PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne,  OneToMany,  PrimaryGeneratedColumn } from "typeorm";
 import { Usuario } from './Usuario'
+import { Imagen } from "./Imagen";
 
 @Entity('trending')
 export class Trending {
@@ -12,13 +13,20 @@ export class Trending {
     @Column({type: 'varchar2', name: 'message', nullable: true})
     message: string 
 
-    @Column({type: 'clob', name: 'base64', nullable: true})
-    base64: string 
+    @Column({type: 'varchar2', name: 'uri', nullable: true})
+    uri: string 
+
+    @Column({type: 'varchar2', name: 'link', nullable: true})
+    link: string 
 
     @CreateDateColumn({name: 'created'})
     created: Date   
 
-    @ManyToOne(() => Usuario, usuario => usuario.trending)
-	@JoinColumn({ name: 'usuario_id' })
-	usuario: Usuario    
+    @ManyToOne(() => Usuario, usuario => usuario.trending, { eager: true })
+	@JoinColumn()
+	usuario: Usuario 
+    
+    @OneToMany(() => Imagen, (imagen) => imagen.trending, { eager: true })
+    @JoinTable()
+	imagen: Imagen
 }

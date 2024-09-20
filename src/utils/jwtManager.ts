@@ -3,7 +3,7 @@ const expiresIn = process.env.TOKEN_EXP;
 const jwt = require('jsonwebtoken');
 
 type jwtClient = {
-	uuid: String,
+	id: Number,
     username: string
 }
 

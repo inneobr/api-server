@@ -13,11 +13,11 @@ export class Usuario {
     @Column({name: 'password', nullable: false})
     password: string  
 
-    @OneToOne(() => Profile, (profile) => profile.usuario) 
+    @OneToOne(() => Profile, (profile) => profile.usuario, { cascade: true, onDelete: 'CASCADE' }) 
     @JoinColumn()
     profile: Profile
 
-    @OneToMany(() => Trending, (trending) => trending.usuario)
+    @OneToMany(() => Trending, (trending) => trending.usuario, { cascade: true, onDelete: 'CASCADE' })
     @JoinTable()
 	trending: Trending[]  
 }

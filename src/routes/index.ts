@@ -5,6 +5,7 @@ import { TrendingController } from '../controllers/TrendingController';
 import { RuningControllers } from '../controllers/RuningControllers';
 import { UsuarioController } from '../controllers/UsuarioController';
 import { ProfileController } from '../controllers/ProfileController';
+import { ImagemController } from '../controllers/ImagemController';
 import { AuthController } from '../controllers/AuthController';
 import { required } from '../middlewares/login';
 
@@ -27,5 +28,8 @@ routes.get('/api/profile',  new ProfileController().find);
 routes.delete('/api/trending', required,  new TrendingController().delete);
 routes.post('/api/trending', required, new TrendingController().create);
 routes.get('/api/trending',  new TrendingController().find);
+
+routes.post('/api/imagem', required, new ImagemController().create);
+
 
 export default routes

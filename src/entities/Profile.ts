@@ -20,7 +20,7 @@ export class Profile {
     @JoinColumn()
     usuario: Usuario
 
-    @OneToOne(() => Imagen, (imagen) => imagen.profile, { eager: true })
+    @OneToOne(() => Imagen, (imagen) => imagen.profile, { eager: true, cascade: true, onDelete: 'CASCADE'})
     @JoinTable()
 	imagen: Imagen
 }

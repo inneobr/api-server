@@ -1,4 +1,5 @@
 import { profileRep } from '../repositories/ProfileRep';
+import { usuarioRep } from '../repositories/UsuariosRep';
 import { Request, Response } from 'express';
 
 export class ProfileController {
@@ -6,8 +7,9 @@ export class ProfileController {
         const { name, email, biography,  usuario } = req.body
         if( !name || !email || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const profile = profileRep.create({
+            uuid: usuario.id,
             name,
-            email,
+            email,            
             biography,
             usuario
         })
@@ -22,10 +24,10 @@ export class ProfileController {
 	}
 
     async find(req: Request, res: Response) {
-        const { usuario  } = req.body
-        if( !usuario ) return res.status(400).json({ message: "ID obrigatório."})
-
-		const response = await profileRep.findOneBy({usuario: usuario.id})
+        const { uuid } = req.body
+        if( !uuid ) return res.status(400).json({ message: "Parametro 'usuario_id' obrigatório."}) 
+ 
+		const response = await profileRep.findOneBy({uuid: Number(uuid)})
         if(!response) return res.status(200).json({ message: "Nenhum registro encontrado."});
         const profile = { id: response.id, name: response.name, email: response.email, biography: response.biography, 
             usuario: {

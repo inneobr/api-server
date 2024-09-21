@@ -23,7 +23,7 @@ routes.get('/api/usuarios', new UsuarioController().findall);
 routes.post('/api/profile', required, new ProfileController().create);
 routes.put('/api/profile',required,  new ProfileController().update);
 routes.get('/api/profile/all',  new ProfileController().findall)
-routes.post('/api/profile/id',  new ProfileController().find);
+routes.post('/api/profile/uuid',  new ProfileController().find);
 
 routes.delete('/api/trending', required,  new TrendingController().delete);
 routes.post('/api/trending', required, new TrendingController().create);

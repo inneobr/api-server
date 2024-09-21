@@ -7,12 +7,13 @@ export class UsuarioController {
         const { username, password } = req.body
         if( !username || !password ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const criptpass = bcrypt.hashSync(password, 10);
-        const usuario = usuarioRep.create({
+        const create = usuarioRep.create({
             username,
             password: criptpass
         })
-        await usuarioRep.save(usuario);
-        return res.status(201).json({ message: 'Cadastrado com sucesso.' });
+        const usuario  = await usuarioRep.save(create);
+        const response = { uuid: usuario.id, username: usuario.username };
+        return res.status(201).json(response);
     }
    
     async findall(req: Request, res: Response) {

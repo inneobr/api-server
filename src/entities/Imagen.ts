@@ -5,13 +5,16 @@ import { Trending } from "./Trending";
 @Entity('imagen')
 export class Imagen {
     @PrimaryGeneratedColumn({name: 'id'})
-    id: number
+    id: number 
+    
+    @Column({name: 'uuid', nullable: false})
+    uuid: number  
 
     @Column({name: 'name', nullable: false})
     name: string
 
     @Column({type: 'clob', name: 'base64', nullable: false})
-    base64: string 
+    base64: string    
     
     @OneToOne(() => Profile, profile => profile.imagen)
 	@JoinColumn()

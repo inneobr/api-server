@@ -7,8 +7,11 @@ export class Profile {
     @PrimaryGeneratedColumn({name: 'id'})
     id: number
 
+    @Column({name: 'uuid', nullable: false})
+    uuid: number  
+
     @Column({name: 'name', length: 100, nullable: false})
-    name: string
+    name: string    
 
     @Column({name: 'email', length: 100, nullable: false})
     email: string  

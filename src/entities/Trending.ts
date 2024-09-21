@@ -8,7 +8,7 @@ export class Trending {
     id: number
 
     @Column({type: 'varchar2', name: 'uuid', nullable: true})
-    uuid: string 
+    uuid: number 
       
     @Column({type: 'varchar2', name: 'message', nullable: true})
     message: string 
@@ -17,7 +17,7 @@ export class Trending {
     uri: string 
 
     @Column({type: 'varchar2', name: 'link', nullable: true})
-    link: string 
+    link: string     
 
     @CreateDateColumn({name: 'created'})
     created: Date   

@@ -1,6 +1,5 @@
 import { trendingRep } from '../repositories/TrendingRep';
 import { Request, Response } from 'express'
-import uuid from 'react-uuid';
 
 export class TrendingController {
     async create(req: Request, res: Response) {
@@ -8,7 +7,7 @@ export class TrendingController {
         if( !uri && !link && !message || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         
         const create = trendingRep.create({
-            uuid: uuid(),
+            uuid: usuario.id,
             uri,
             link,
             message,

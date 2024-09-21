@@ -6,7 +6,7 @@ export class ImagemController {
         const { name, base64, profile, trending } = req.body
         if( !name || !base64 ) return res.status(401).send({ message: 'Nome e imagem são obrigatório.'});
         const create = imagemRep.create({
-            uuid: profile.id,
+            uuid: profile.id ? profile.id : trending.id,
             name,
             base64,
             profile, 

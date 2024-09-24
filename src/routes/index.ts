@@ -30,6 +30,6 @@ routes.post('/api/trending', required, new TrendingController().create);
 routes.get('/api/trending',  new TrendingController().find);
 
 routes.post('/api/imagem', required, new ImagemController().create);
-
+routes.get('/api/imagem/:id', required, new ImagemController().findById);
 
 export default routes

@@ -16,4 +16,13 @@ export class ImagemController {
         const response = imagemRep.save(create)   
 	    return res.status(200).json(response);
     }
+
+    async findById(req: Request, res: Response) {
+        const {id} = req.params
+        if( !id ) return res.status(400).json({ message: "Parametro 'id' obrigatório."}) 
+        
+		const response = await imagemRep.findBy({trendingId: Number(id)});
+       if(!response) return res.status(200).json({ message: "Nenhum registro encontrado."});
+		return res.json(response);
+	}
 }

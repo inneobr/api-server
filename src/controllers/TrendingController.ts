@@ -31,11 +31,12 @@ export class TrendingController {
                 uri: item.uri,
                 link: item.link,
                 message: item.message,
-                created: item.created
+                created: item.created,                
+                imagens: item.imagen,
             }
         })
         
-		return res.json(trending);
+		return res.json(response);
 	}
 
     async delete(req: Request, res: Response) {

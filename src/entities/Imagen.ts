@@ -25,6 +25,6 @@ export class Imagen {
 	usuario: Usuario  
 
     @ManyToMany(() => Trending, trending => trending.imagen)
-	@JoinColumn({name: 'trending_id'})
-	trending: Trending  
+    @JoinColumn({name: 'trending_id'})
+	trending: Trending[]  
 }

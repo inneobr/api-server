@@ -27,6 +27,7 @@ export class TrendingController {
                     username: item.usuario.username,
                     avatar: item.usuario.imagen.base64
                 },
+                id: item.id,
                 uri: item.uri,
                 link: item.link,
                 message: item.message,

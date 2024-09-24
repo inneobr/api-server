@@ -25,18 +25,18 @@ export class TrendingController {
                 usuario: {
                     id: item.usuario.id,
                     username: item.usuario.username,
-                    avatar: item.usuario.imagen.base64
+                    avatar: item.usuario?.imagen?.base64
                 },
                 id: item.id,
                 uri: item.uri,
                 link: item.link,
                 message: item.message,
-                created: item.created,                
-                imagens: item.imagen,
+                created: item.created,
+                imagem: item?.imagen
             }
         })
         
-		return res.json(response);
+		return res.json(trending);
 	}
 
     async delete(req: Request, res: Response) {

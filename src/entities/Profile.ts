@@ -1,14 +1,10 @@
-import {  PrimaryGeneratedColumn, Column, Entity, OneToOne, JoinColumn, OneToMany, JoinTable } from "typeorm";
+import {  PrimaryGeneratedColumn, Column, Entity, OneToOne, JoinColumn } from "typeorm";
 import { Usuario } from "./Usuario";
-import { Imagen } from "./Imagen";
 
 @Entity('profile')
 export class Profile {
     @PrimaryGeneratedColumn({name: 'id'})
     id: number
-
-    @Column({name: 'uuid', nullable: false})
-    uuid: number  
 
     @Column({name: 'name', length: 100, nullable: false})
     name: string    
@@ -19,11 +15,10 @@ export class Profile {
     @Column({name: 'biography', length: 100, nullable: true})
     biography: string  
 
-    @OneToOne(() => Usuario, (usuario) => usuario.profile, { eager: true }) 
-    @JoinColumn()
-    usuario: Usuario
+    @Column({name: 'usuario', nullable: true})
+    usuarioId: number
 
-    @OneToOne(() => Imagen, (imagen) => imagen.profile, { eager: true, cascade: true, onDelete: 'CASCADE'})
-    @JoinTable()
-	imagen: Imagen
+    @OneToOne(() => Usuario, (usuario) => usuario.profile, { eager: true }) 
+    @JoinColumn({name: 'usuario_id'})
+    usuario: Usuario    
 }

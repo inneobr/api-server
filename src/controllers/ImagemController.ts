@@ -3,14 +3,15 @@ import { Request, Response } from 'express';
 
 export class ImagemController {
     async create(req: Request, res: Response) {        
-        const { name, base64, profile, trending } = req.body
-        if( !name || !base64 ) return res.status(401).send({ message: 'Nome e imagem são obrigatório.'});
+        const { name, base64, usuario, trending } = req.body
+        if( !name ) return res.status(401).send({ message: 'Nome é obrigatório.'});
         const create = imagemRep.create({
-            uuid: profile.id ? profile.id : trending.id,
             name,
             base64,
-            profile, 
-            trending
+            usuario, 
+            trending,
+            usuarioId: usuario?.id,
+            trendingId: trending?.id,
         })       
         const response = imagemRep.save(create)   
 	    return res.status(200).json(response);

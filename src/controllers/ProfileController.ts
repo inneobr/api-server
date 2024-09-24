@@ -7,11 +7,11 @@ export class ProfileController {
         const { name, email, biography,  usuario } = req.body
         if( !name || !email || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         const profile = profileRep.create({
-            uuid: usuario.id,
             name,
             email,            
             biography,
-            usuario
+            usuario,
+            usuarioId: usuario?.id
         })
        await profileRep.save(profile);
         return res.status(201).json({ message: 'Cadastrado com sucesso.' });
@@ -24,14 +24,14 @@ export class ProfileController {
 	}
 
     async find(req: Request, res: Response) {
-        const { uuid } = req.body
-        if( !uuid ) return res.status(400).json({ message: "Parametro 'usuario_id' obrigatório."}) 
- 
-		const response = await profileRep.findOneBy({uuid: Number(uuid)})
-        if(!response) return res.status(200).json({ message: "Nenhum registro encontrado."});
+        const {id} = req.params
+        if( !id ) return res.status(400).json({ message: "Parametro 'id' obrigatório."}) 
+        
+		const response = await profileRep.findOneBy({usuarioId: Number(id)});
+       if(!response) return res.status(200).json({ message: "Nenhum registro encontrado."});
         const profile = { id: response.id, name: response.name, email: response.email, biography: response.biography, 
             usuario: {
-                id:  response.usuario.id, username:  response.usuario.username, imagem: response?.imagen?.base64
+                id:  response.usuario.id, username:  response.usuario.username
             } 
         };
 		return res.json(profile);

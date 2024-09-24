@@ -7,11 +7,11 @@ export class TrendingController {
         if( !uri && !link && !message || !usuario ) return res.status(400).json({ message: "Campos com * obrigatório."});
         
         const create = trendingRep.create({
-            uuid: usuario.id,
             uri,
             link,
             message,
-            usuario
+            usuario,            
+            usuarioId: usuario?.id
         })
         await trendingRep.save(create);
         return res.status(201).json(create);
@@ -24,9 +24,9 @@ export class TrendingController {
             return {                
                 usuario: {
                     uuid: item.usuario.id,
-                    username: item.usuario.username
+                    username: item.usuario.username,
+                    avatar: item.usuario.imagen.base64
                 },
-                uuid: item.uuid,
                 uri: item.uri,
                 link: item.link,
                 message: item.message,

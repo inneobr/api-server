@@ -6,10 +6,7 @@ import { Imagen } from "./Imagen";
 export class Trending {
     @PrimaryGeneratedColumn({name: 'id'})
     id: number
-
-    @Column({type: 'varchar2', name: 'uuid', nullable: true})
-    uuid: number 
-      
+       
     @Column({type: 'varchar2', name: 'message', nullable: true})
     message: string 
 
@@ -22,11 +19,23 @@ export class Trending {
     @CreateDateColumn({name: 'created'})
     created: Date   
 
+    @Column({name: 'usuario'})
+    usuarioId: number
+
     @ManyToOne(() => Usuario, usuario => usuario.trending, { eager: true })
-	@JoinColumn()
+    @JoinColumn({name: 'usuario_id'})
 	usuario: Usuario 
     
     @OneToMany(() => Imagen, (imagen) => imagen.trending, { eager: true })
-    @JoinTable()
-	imagen: Imagen
+    @JoinTable({name: 'trending_imagens', 
+        joinColumn: {
+            name: 'trending_id',
+            referencedColumnName: 'id',
+        },
+        inverseJoinColumn: {
+            name: 'imagens_id',
+            referencedColumnName: 'id',
+        },
+    })  
+	imagen: Imagen[]
 }

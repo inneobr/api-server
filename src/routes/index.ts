@@ -16,14 +16,14 @@ routes.get('/', new RuningControllers().status);
 routes.get('/api/usuarios/search', new UsuarioController().findByUsername);
 routes.delete('/api/usuarios',required, new UsuarioController().delete);
 routes.put('/api/usuarios',required, new UsuarioController().update);
-routes.get('/api/usuarios/id', new UsuarioController().findById);
+routes.get('/api/usuarios/:id', new UsuarioController().findById);
 routes.post('/api/usuarios', new UsuarioController().create);
 routes.get('/api/usuarios', new UsuarioController().findall);
 
 routes.post('/api/profile', required, new ProfileController().create);
 routes.put('/api/profile',required,  new ProfileController().update);
 routes.get('/api/profile/all',  new ProfileController().findall)
-routes.post('/api/profile/uuid',  new ProfileController().find);
+routes.get('/api/profile/:id',  new ProfileController().find);
 
 routes.delete('/api/trending', required,  new TrendingController().delete);
 routes.post('/api/trending', required, new TrendingController().create);

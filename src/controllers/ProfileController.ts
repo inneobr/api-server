@@ -24,7 +24,7 @@ export class ProfileController {
 	}
 
     async find(req: Request, res: Response) {
-        const {id} = req.params
+        const { id } = req.query
         if( !id ) return res.status(400).json({ message: "Parametro 'id' obrigatório."}) 
         
 		const response = await profileRep.findOneBy({usuarioId: Number(id)});

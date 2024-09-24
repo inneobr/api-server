@@ -29,7 +29,7 @@ export class UsuarioController {
 	}
 
     async findById(req: Request, res: Response) {
-        const { id  } = req.body
+        const { id } = req.query
         if( !id ) return res.status(400).json({ message: "UUID obrigatório."})
 
 		const usuario = await usuarioRep.findOneBy({ id: Number(id) })       

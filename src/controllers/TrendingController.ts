@@ -39,13 +39,13 @@ export class TrendingController {
 	}
 
     async delete(req: Request, res: Response) {
-        const { id } = req.body;
+        const { id } = req.query
         if( !id ) return res.status(400).json({ message: "ID obrigatório."});   
 
         const trending = await trendingRep.findOneBy({id: Number(id)});        
         if(!trending) return res.status(400).json({ message: "Trending não encontrado."});
 
-        await trendingRep.delete(id);
+        await trendingRep.delete(Number(id))
         return res.status(201).json({ message: trending?.usuario + " Deletada com sucesso."});
     }
 }

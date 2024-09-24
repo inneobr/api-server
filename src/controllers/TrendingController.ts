@@ -23,7 +23,7 @@ export class TrendingController {
         const trending = response.map((item) => {
             return {                
                 usuario: {
-                    uuid: item.usuario.id,
+                    id: item.usuario.id,
                     username: item.usuario.username,
                     avatar: item.usuario.imagen.base64
                 },

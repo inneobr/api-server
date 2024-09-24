@@ -30,8 +30,7 @@ export class TrendingController {
                 uri: item.uri,
                 link: item.link,
                 message: item.message,
-                created: item.created,
-                imagen: item.imagen
+                created: item.created
             }
         })
         

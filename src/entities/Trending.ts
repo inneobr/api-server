@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne,  OneToMany,  PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToMany, ManyToOne,  OneToMany,  PrimaryGeneratedColumn } from "typeorm";
 import { Usuario } from './Usuario'
 import { Imagen } from "./Imagen";
 
@@ -26,7 +26,7 @@ export class Trending {
     @JoinColumn({name: 'usuario_id'})
 	usuario: Usuario 
     
-    @OneToMany(() => Imagen, (imagen) => imagen.trending, { eager: true })
+    @ManyToMany(() => Imagen, (imagen) => imagen.trending, { eager: true })
     @JoinTable({name: 'trending_imagens', 
         joinColumn: {
             name: 'trending_id',

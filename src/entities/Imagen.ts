@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
+import { PrimaryGeneratedColumn, Column, Entity, JoinColumn, ManyToOne, OneToOne, ManyToMany } from "typeorm";
 import { Profile } from "./Profile";
 import { Trending } from "./Trending";
 import { Usuario } from "./Usuario";
@@ -24,7 +24,7 @@ export class Imagen {
 	@JoinColumn({name: 'usuario_id'})
 	usuario: Usuario  
 
-    @OneToOne(() => Trending, trending => trending.imagen)
+    @ManyToMany(() => Trending, trending => trending.imagen)
 	@JoinColumn({name: 'trending_id'})
 	trending: Trending  
 }

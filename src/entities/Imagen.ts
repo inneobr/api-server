@@ -9,7 +9,7 @@ export class Imagen {
     id: number    
 
     @Column({name: 'descricao', nullable: false})
-    name: string
+    descricao: string
 
     @Column({type: 'clob', name: 'imagem', nullable: false})
     base64: Blob  

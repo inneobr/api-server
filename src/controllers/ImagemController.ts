@@ -3,10 +3,10 @@ import { Request, Response } from 'express';
 
 export class ImagemController {
     async create(req: Request, res: Response) {        
-        const { name, base64, usuario, trending } = req.body
-        if( !name ) return res.status(401).send({ message: 'Nome é obrigatório.'});
+        const { descricao, base64, usuario, trending } = req.body
+        if( !descricao ) return res.status(401).send({ message: 'Nome é obrigatório.'});
         const create = imagemRep.create({
-            name,
+            descricao,
             base64,
             usuario, 
             trending,

@@ -11,8 +11,8 @@ export class Imagen {
     @Column({name: 'name', nullable: false})
     name: string
 
-    @Column({type: 'clob', name: 'base64', nullable: false})
-    base64: string   
+    @Column({type: 'clob', name: 'imagem', nullable: false})
+    base64: Blob  
     
     @Column({name: 'usuario', nullable: true})
     usuarioId: number 

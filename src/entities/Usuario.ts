@@ -23,15 +23,6 @@ export class Usuario {
 	imagen: Imagen
 
     @OneToMany(() => Trending, (trending) => trending.usuario, { cascade: true, onDelete: 'CASCADE' })
-    @JoinTable({name: 'usuario_trending', 
-        joinColumn: {
-            name: 'usuario_id',
-            referencedColumnName: 'id',
-        },
-        inverseJoinColumn: {
-            name: 'trending_id',
-            referencedColumnName: 'id',
-        }
-    })   
+    @JoinTable({name: 'usuario_trending'})   
 	trending: Trending[]  
 }

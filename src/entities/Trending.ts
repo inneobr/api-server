@@ -27,15 +27,6 @@ export class Trending {
 	usuario: Usuario 
     
     @ManyToMany(() => Imagen, (imagen) => imagen.trending, { eager: true }) 
-    @JoinTable({name: 'trending_imagem', 
-        joinColumn: {
-            name: 'trending_id',
-            referencedColumnName: 'id',
-        },
-        inverseJoinColumn: {
-            name: 'imagem_id',
-            referencedColumnName: 'id',
-        }
-    })  
+    @JoinTable({name: 'trending_imagem'})  
 	imagen: Imagen[]
 }

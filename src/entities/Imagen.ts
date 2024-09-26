@@ -8,7 +8,7 @@ export class Imagen {
     @PrimaryGeneratedColumn({name: 'id'})
     id: number    
 
-    @Column({name: 'name', nullable: false})
+    @Column({name: 'descricao', nullable: false})
     name: string
 
     @Column({type: 'clob', name: 'imagem', nullable: false})
